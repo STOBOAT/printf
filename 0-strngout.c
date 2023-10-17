@@ -1,6 +1,8 @@
 #include <stdlib.h>
+#include <limits.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include "main.h"
 
 _printf(const char *format, ...)
 {
