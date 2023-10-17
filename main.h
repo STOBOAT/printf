@@ -1,5 +1,5 @@
 #ifndef MAIN_H
-#define main_H
+#define MAIN_H
 
 #include <stdlib.h>
 #include <stdarg.h>
@@ -32,7 +32,7 @@ typedef struct printHandler
 } ph;
 
 
-/* write functions puchar and puts declarations */
+/* write functions putchar and puts declarations */
 int _putchar(char c);
 int _puts(char *str);
 
