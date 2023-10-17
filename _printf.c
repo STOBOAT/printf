@@ -1,51 +1,62 @@
-#include <limits.h>
-#include <stdarg.h>
-#include <unistd.h>
+#include <stdio.h>
 #include "main.h"
+#include <limits.h>
 
 /**
-  * _printf - A function that produces output according to format.
-  * @format: format string.
-  * Description: This function will print out according to format
-  * string and format specifiers.
-  * Return: len of the formatted string.
+  * _printf - function produces formatted string
+  * @format: format string
+  * Description: function produces output according to
+  * format and returns the number of char printed.
+  * Return: Number of characters
   */
 
 int _printf(const char *format, ...)
 {
-	int (*pfunc)(va_list, flags_t *);
-	const char *p;
-	va_list arguments;
-	flags_t flags = {0, 0, 0};
+	int count = 0;
 
-	register int count = 0;
+	va_list args;
 
-	va_start(arguments, format);
-	if (!format || (format[0] == '%' && !format[1]))
-		return (-1);
-	if (format[0] == '%' && format[1] == ' ' && !format[2])
-		return (-1);
-	for (p = format; *p; p++)
+	va_start(args, format);
+
+	while (*format)
 	{
-		if (*p == '%')
+		if (*format != '%')
 		{
-			p++;
-			if (*p == '%')
+			_putchar(*format);
+			count++;
+		}
+		else
+		{
+			format++;
+			if (*format == '\0')
+				break;
+			if (*format == 'c')
 			{
-				count += _putchar('%');
-				continue;
-			}
-			while (my_flag(*p, &flags))
-				p++;
-			pfunc = my_print(*p);
-			count += (pfunc)
-				? pfunc(arguments, &flags)
-				: _printf("%%%c", *p);
-		} else
-			count += _putchar(*p);
-	}
-	_putchar(-1);
-	va_end(arguments);
-	return (count);
+				int c = va_arg(args, int);
 
+				_putchar(c);
+				count++;
+			}
+			else if (*format == 's')
+			{
+				const char *str = va_arg(args, const char *);
+
+				while (*str)
+				{
+					_putchar(*str);
+					str++;
+					count++;
+				}
+			}
+			else if (*format == '%')
+			{
+				_putchar('%');
+				count++;
+			}
+		}
+		format++;
+	}
+
+	va_end(args);
+	return (count);
 }
