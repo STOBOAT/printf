@@ -14,9 +14,12 @@ int _printf(const char *format, ...)
 {
 	int count = 0;
 
-	va_list args;
+	va_list argumentList;
 
-	va_start(args, format);
+	if (format == NULL)
+		return (-1);
+
+	va_start(argumentList, format);
 
 	while (*format)
 	{
@@ -32,20 +35,20 @@ int _printf(const char *format, ...)
 				break;
 			if (*format == 'c')
 			{
-				int c = va_arg(args, int);
+				int c = va_arg(argumentList, int);
 
 				_putchar(c);
 				count++;
 			}
 			else if (*format == 's')
 			{
-				const char *str = va_arg(args, const char *);
+				const char *str = va_arg(argumentList, const char *);
 
 				while (*str)
 				{
 					_putchar(*str);
 					str++;
-					count++;
+					count ++;
 				}
 			}
 			else if (*format == '%')
@@ -57,6 +60,6 @@ int _printf(const char *format, ...)
 		format++;
 	}
 
-	va_end(args);
+	va_end(argumentList);
 	return (count);
 }
