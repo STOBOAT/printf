@@ -23,7 +23,7 @@ int _printf(const char *format, ...)
 	{
 		if (*format != '%')
 		{
-			putchar(*format);
+			_putchar(*format);
 			char_count++;
 		}
 		else
@@ -35,7 +35,7 @@ int _printf(const char *format, ...)
 			{
 				int c = va_arg(args, int);
 
-				putchar(c);
+				_putchar(c);
 				char_count++;
 			}
 			else if (*format == 's')
@@ -44,14 +44,14 @@ int _printf(const char *format, ...)
 
 				while (*str)
 				{
-					putchar(*str);
+					_putchar(*str);
 					str++;
 					char_count++;
 				}
 			}
 			else if (*format == '%')
 			{
-				putchar('%');
+				_putchar('%');
 				char_count++;
 			}
 		}
