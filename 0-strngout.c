@@ -3,6 +3,14 @@
 #include <unistd.h>
 #include "main.h"
 
+/**
+  * _printf - A function that produces output according to format.
+  * @format: format string.
+  * Description: This function will print out according to format
+  * string and format specifiers.
+  * Return: len of the formatted string.
+  */
+
 int _printf(const char *format, ...)
 {
 	va_list args;
