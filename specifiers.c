@@ -11,9 +11,10 @@
 void my_printf(const char *format, ...)
 {
 	va_list specifiers;
+
 	va_start(specifiers, format);
 
-	for (*format !='\0' && *format == '%')
+	for (*format != '\0' && *format == '%')
 	{
 		{
 			format++;
