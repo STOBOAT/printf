@@ -1,6 +1,5 @@
-#include <stdio.h>
 #include "main.h"
-#include <limits.h>
+#include <stdio.h>
 
 /**
   * _printf - function produces formatted string
@@ -12,7 +11,7 @@
 
 int _printf(const char *format, ...)
 {
-	int count = 0;
+	int countChar = 0;
 
 	va_list argumentList;
 
@@ -22,44 +21,46 @@ int _printf(const char *format, ...)
 	va_start(argumentList, format);
 
 	while (*format)
+		/* a loop to iterate over char of the string */
 	{
 		if (*format != '%')
 		{
 			_putchar(*format);
-			count++;
+			countChar++;
 		}
 		else
 		{
 			format++;
 			if (*format == '\0')
 				break;
-			if (*format == 'c')
-			{
-				int c = va_arg(argumentList, int);
 
-				_putchar(c);
-				count++;
+			if (*format == '%')
+			{
+				_putchar(*format);
+				countChar++;
+			}
+			else if (*format == 'c')
+			{
+				char character = va_arg(argumentList, int);
+
+				_putchar(character);
+				countChar++;
 			}
 			else if (*format == 's')
 			{
-				const char *str = va_arg(argumentList, const char *);
+				char *myStr = va_arg(argumentList, char *);
+					int strLen = 0;
 
-				while (*str)
-				{
-					_putchar(*str);
-					str++;
-					count ++;
-				}
-			}
-			else if (*format == '%')
-			{
-				_putchar('%');
-				count++;
+				while (myStr[strLen] != '\0')
+					strLen++;
+				write(1, myStr, strLen);
+				countChar += strLen;
 			}
 		}
 		format++;
 	}
 
 	va_end(argumentList);
-	return (count);
+
+	return (countChar);
 }
